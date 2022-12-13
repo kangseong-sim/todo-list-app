@@ -12,7 +12,7 @@ const TodoHeadstyled = styled.div`
   .day {
     font-size: 22px;
     font-weight: bold;
-    border-bottom: 1px solid #c8c8c8;
+    border-bottom: 1px solid;
     padding-bottom: 10px ;
   }
 

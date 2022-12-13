@@ -33,7 +33,7 @@ const CircleButton = styled.button`
 `;
 
 const InsertFormPositioner = styled.div`
-  width: 100%;
+  
   height: 50%;
 
 
