@@ -1,17 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import dummyTodos from "../dummydata";
 import {MdDone, MdDelete} from 'react-icons/md'
+import { useTodoDispatch } from "../reducer.js";
 
 const Remove = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #dee2e6;
+  /* align-items: center; */
+  /* justify-content: center; */
+  color: #dcdcdc;
   font-size: 24px;
   cursor: pointer;
   &:hover {
-    color: #ff6b6b;
+    color: #787878;
   }
   display: none;
 `;
@@ -27,6 +27,7 @@ display: flex;
     }
   }
 `;
+
 const CheckBox = styled.div`
   width: 20px;
   height: 20px;
@@ -47,17 +48,21 @@ const Text = styled.div`
 `;
 
 const TodoItem = ( {id, done, text} ) => {
-  
+  const dispatch = useTodoDispatch();
+
   const onToggle = () => {
-    return dummyTodos.map(todo =>
-      todo.id === id ? { ...todo, done: !todo.done } : todo
-    );
-  }
+    dispatch({
+      type: 'CHECK',
+      id
+    });
+  };
 
   const onRemove = () => {
-    return dummyTodos.filter(todo => todo.id !== id);
-
-  }
+    dispatch({
+      type: 'REMOVE',
+      id
+    });
+  };
   
   
   

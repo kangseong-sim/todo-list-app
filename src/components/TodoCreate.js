@@ -1,7 +1,7 @@
-import React, {useState} from "react";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
 import { MdAdd } from 'react-icons/md';
-import dummyTodos from "../dummydata";
+import { useTodoDispatch, useTodoNextId } from "../reducer.js";
 
 const CircleButton = styled.button`
   background: #b4b4b4;
@@ -16,66 +16,67 @@ const CircleButton = styled.button`
   width: 60px;
   height: 60px;
   font-size: 60px;
-  position: absolute;
-  left: 80%;
-  bottom: 0px;
-  transform: translate(-50%, 50%);
+  transform: translate(500%,20%);
   color: white;
   border-radius: 50%;
   border: none;
   outline: none;
-  display: flex;
+  display: flex; 
   align-items: center;
-  justify-content: center;
+  justify-content: center; 
 
-  transition: 0.125s all ease-in;
   
 `;
 
 const InsertFormPositioner = styled.div`
   
-  height: 50%;
-
-
+  /* bottom: 0; */
+  /* position: absolute; */
 `;
 
 const InsertForm = styled.form`
-  
   padding-left: 40px;
   padding-right: 40px;
-  padding-top: 60px;
+  padding-top: 25px;
+  padding-bottom: 72px;
   
   border-top: 1px solid #e9ecef;
+
+  .close {
+    padding-bottom: 15px;
+  }
 `;
 
 const Input = styled.input`
+  padding: 12px;
   border: none;
-  &:active {
-    border: none;
-  }
   width: 100%;
-  height: auto;
-  font-size: 20px;
+  outline: none;
+  font-size: 18px;
   box-sizing: border-box;
 `;
 
-const TodoCreate = () => {
 
+
+function TodoCreate() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
-  
+  const dispatch = useTodoDispatch();
+  const nextId = useTodoNextId();
 
   const onToggle = () => setOpen(!open);
   const onChange = e => setValue(e.target.value);
   const onSubmit = e => {
     e.preventDefault();
-     const todo = {
-        id: dummyTodos.length,
+    dispatch({
+      type: 'CREATE',
+      todo: {
+        id: nextId.current,
         text: value,
         done: false
-      };
-    
-      dummyTodos.length += 1;
+      }
+    });
+    nextId.current += 1;
     setOpen(false);
     setValue('');
   };
@@ -85,6 +86,7 @@ const TodoCreate = () => {
       {open && (
         <InsertFormPositioner>
           <InsertForm onSubmit={onSubmit}>
+           <div className='close'>X</div> 
             <Input
               autoFocus
               onChange={onChange}
@@ -99,6 +101,6 @@ const TodoCreate = () => {
       </CircleButton>
     </>
   );
-};
+}
 
-export default TodoCreate;
+export default React.memo(TodoCreate);

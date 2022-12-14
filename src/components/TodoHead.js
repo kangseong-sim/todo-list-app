@@ -15,8 +15,6 @@ const TodoHeadstyled = styled.div`
     border-bottom: 1px solid;
     padding-bottom: 10px ;
   }
-
-
 `
 
 const TodoHead = () => {

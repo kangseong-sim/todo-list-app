@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 const TodoTemplateStyled = styled.div`
-  width: 500px;
+  width: 350px;
   height: 60px;
-  padding: 5%;
+  padding-left: 100px;
+  display: flex;
+  flex-direction: column;
   
-
-
 `
 
 const TodoTemplate = ({children}) => {
